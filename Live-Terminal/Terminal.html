@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Editor</title>
+    <link rel="stylesheet" href="terminal.css">
+    <script src="https://kit.fontawesome.com/eaac6dddbd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <center><h1><u>LIVE-TERMINAL</u></h1></center>
+
+        <div class="container1">
+            <div id="stopwatch">
+                00:00:00
+            </div>
+            <div id="buttons">
+                <button onclick="startTimer()">Start</button>
+                <button onclick="stopTimer()">Stop</button>
+                <button onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+    <div class="container">
+    <div class="left">
+        <label>   <i class="fa-brands fa-html5"> </i> HTML</label>
+        <textarea id="html-code" onkeyup="run()"></textarea>
+        <label>   <i class="fa-brands fa-css3-alt"> </i> CSS</label>
+        <textarea id="css-code" onkeyup="run()"></textarea>
+        <label>   <i class="fa-brands fa-square-js"> </i> JavaScript</label>
+        <textarea id="js-code" onkeyup="run()"></textarea>
+    </div>
+    <div class="right"><label> <i class="fa-solid fa-play"></i> LIVE-OUTPUT</label>
+        <iframe id="output"></iframe>
+        <h1><center> BY Amitesh Kumar</center></h1>
+    </div>  
+    </div> 
+
+    <script>
+        function run(){
+            let htmlcode=document.getElementById("html-code").value;
+            let csscode=document.getElementById("css-code").value;
+            let jsCode=document.getElementById("js-code").value;
+            let output=document.getElementById("output");
+
+            output.contentDocument.body.innerHTML=htmlcode + "<style>"+csscode+"</style>";
+            output.contentWindow.eval(jsCode);
+        }
+        const timer = document.getElementById("stopwatch");
+var hr = 0;
+var min = 0;
+var sec = 0;
+var stoptime = true;
+
+function startTimer() {
+  if (stoptime == true) {
+    stoptime = false;
+    timerCycle();
+  }
+}
+function stopTimer() {
+  if (stoptime == false) {
+    stoptime = true;
+  }
+}
+
+function timerCycle() {
+  if (stoptime == false) {
+    sec = parseInt(sec);
+    min = parseInt(min);
+    hr = parseInt(hr);
+
+    sec = sec + 1;
+
+    if (sec == 60) {
+      min = min + 1;
+      sec = 0;
+    }
+    if (min == 60) {
+      hr = hr + 1;
+      min = 0;
+      sec = 0;
+    }
+
+    if (sec < 10 ) {
+      sec = "0" + sec;
+    }
+    if (min < 10 ) {
+      min = "0" + min;
+    }
+    if (hr < 10 ) {
+      hr = "0" + hr;
+    }
+
+    timer.innerHTML = hr + ":" + min + ":" + sec;
+
+    setTimeout("timerCycle()", 1000);
+  }
+}
+function resetTimer() {
+  timer.innerHTML = "00:00:00";
+  stoptime = true;
+  hr = 0;
+  sec = 0;
+  min = 0;
+}
+    </script>
+
+</body>
+</html>
